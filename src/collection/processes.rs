@@ -168,6 +168,43 @@ pub struct ProcessHarvest {
     // pub virt_kb: u64,
 }
 
+impl ProcessHarvest {
+    /// Remove the decoration used by wrapped Nix executables from the process name.
+    pub(crate) fn strip_nix_wrapper(&mut self) {
+        if let Some(name) = self
+            .name
+            .strip_prefix('.')
+            .and_then(|name| name.strip_suffix("-wrapped"))
+            .filter(|name| !name.is_empty())
+        {
+            self.name = name.to_owned();
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::ProcessHarvest;
+
+    #[test]
+    fn strips_nix_wrapper_from_process_name() {
+        for (input, expected) in [
+            (".Discord-wrapped", "Discord"),
+            (".gvfs-wrapped", "gvfs"),
+            ("Discord-wrapped", "Discord-wrapped"),
+            (".Discord", ".Discord"),
+            (".-wrapped", ".-wrapped"),
+        ] {
+            let mut process = ProcessHarvest {
+                name: input.into(),
+                ..Default::default()
+            };
+            process.strip_nix_wrapper();
+            assert_eq!(process.name, expected);
+        }
+    }
+}
+
 impl DataCollector {
     pub(crate) fn get_processes(&mut self) -> CollectionResult<Vec<ProcessHarvest>> {
         cfg_select! {

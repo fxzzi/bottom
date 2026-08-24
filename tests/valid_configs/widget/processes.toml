@@ -7,6 +7,7 @@ whole_word = true
 regex = true
 default_tree = true
 process_command = true
+strip_nix_wrapper = true
 disable_advanced_kill = true
 default_memory_value = true
 hide_k_threads = true

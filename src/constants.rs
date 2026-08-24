@@ -431,6 +431,9 @@ pub(crate) const CONFIG_TEXT: &str = r#"# This is a default config file for bott
 # Shows the full command name instead of the process name by default.
 #process_command = false
 
+# Strips Nix wrapper decorations from process names (e.g. `.foo-wrapped` becomes `foo`).
+#strip_nix_wrapper = false
+
 # Disable the advanced kill dialog and just show the basic one with no options. Only available on Linux, macOS, and FreeBSD.
 #disable_advanced_kill = false
 

@@ -383,6 +383,15 @@ pub struct ProcessArgs {
     )]
     pub process_command: bool,
 
+    #[arg(
+        long,
+        action = ArgAction::SetTrue,
+        help = "Strips Nix wrapper decorations from process names.",
+        long_help = "Strips Nix wrapper decorations from process names (for example, `.foo-wrapped` is shown as `foo`).",
+        alias = "strip-nix-wrapper"
+    )]
+    pub strip_nix_wrapper: bool,
+
     #[arg(short = 'R', long, action = ArgAction::SetTrue, help = "Enables regex by default while searching.")]
     pub regex: bool,
 

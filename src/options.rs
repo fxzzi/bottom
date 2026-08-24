@@ -476,6 +476,7 @@ pub(crate) fn init_app(args: BottomArgs, config: Config) -> Result<(App, BottomL
             flags.unnormalized_cpu,
         ),
         get_process_threads: is_flag_enabled_in!(get_threads, args.process, config.processes),
+        strip_nix_wrapper: is_flag_enabled_in!(strip_nix_wrapper, args.process, config.processes),
         use_basic_mode,
         default_time_value,
         time_interval: get_time_interval(args, config, retention_ms)?,

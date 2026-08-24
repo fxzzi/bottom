@@ -33,6 +33,9 @@ pub(crate) struct ProcessesConfig {
     /// Shows the full command name instead of the process name by default.
     pub process_command: Option<bool>,
 
+    /// Strips Nix wrapper decorations from process names (e.g. `.foo-wrapped` becomes `foo`).
+    pub strip_nix_wrapper: Option<bool>,
+
     // This does nothing on Windows, but we leave it enabled to make the config file consistent
     // across platforms.
     //

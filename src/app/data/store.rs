@@ -224,7 +224,12 @@ impl InnerData {
             }
         }
 
-        if let Some(list_of_processes) = data.list_of_processes {
+        if let Some(mut list_of_processes) = data.list_of_processes {
+            if settings.strip_nix_wrapper {
+                list_of_processes
+                    .iter_mut()
+                    .for_each(|process| process.strip_nix_wrapper());
+            }
             self.process_data.ingest(list_of_processes);
         }
 
